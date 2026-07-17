@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { Guestbook } from "./guestbook";
 
-const baseVisitorCount = 438;
+const baseVisitorCount = 0;
 const counterEndpoint =
-  "https://api.counterapi.dev/v1/amalia-madden-physics-site/visitors";
+  "https://api.counterapi.dev/v1/amalia-madden-physics-site/visitors-v2";
 
 function counterValue(payload: unknown) {
   if (!payload || typeof payload !== "object") return null;
@@ -36,8 +36,8 @@ export function VisitorTracker() {
   useEffect(() => {
     let active = true;
     const scope = storageScope();
-    const countedKey = `amalia-visitor-counted-v1:${scope}`;
-    const localCountKey = `amalia-visitor-fallback-v1:${scope}`;
+    const countedKey = `amalia-visitor-counted-v2:${scope}`;
+    const localCountKey = `amalia-visitor-fallback-v2:${scope}`;
     const hasCounted = window.localStorage.getItem(countedKey) === "yes";
     const isLocal = ["localhost", "127.0.0.1", "::1"].includes(
       window.location.hostname,
