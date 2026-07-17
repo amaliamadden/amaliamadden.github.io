@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 
 const giscusConfig = {
   repo:
-    process.env.NEXT_PUBLIC_GISCUS_REPO ??
+    process.env.NEXT_PUBLIC_GISCUS_REPO ||
     "amaliamadden/amaliamadden.github.io",
-  repoId: process.env.NEXT_PUBLIC_GISCUS_REPO_ID ?? "R_kgDOTbMm-Q",
-  category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY ?? "Announcements",
+  repoId: process.env.NEXT_PUBLIC_GISCUS_REPO_ID || "R_kgDOTbMm-Q",
+  category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY || "Announcements",
   categoryId:
-    process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID ?? "DIC_kwDOTbMm-c4DBX2d",
+    process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID || "DIC_kwDOTbMm-c4DBX2d",
 };
 
 export function Guestbook() {
