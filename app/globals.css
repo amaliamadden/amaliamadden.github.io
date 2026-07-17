@@ -701,16 +701,11 @@ footer p { margin: 0 0 8px; }
 }
 
 @media (max-width: 680px) {
-  body { font-size: 16px; line-height: 1.55; }
-
   .site-shell { padding: 20px 12px 108px; }
   .page-wrap { width: 100%; }
   .masthead { min-height: 135px; }
   .masthead h1 {
     max-width: 100%;
-    font-size: clamp(42px, 15vw, 64px);
-    line-height: 0.98;
-    -webkit-text-stroke-width: 4px;
   }
 
   .web-panel {
@@ -722,25 +717,18 @@ footer p { margin: 0 0 8px; }
 
   .links-panel { margin-top: 52px; }
 
-  .web-panel h2 {
-    font-size: 32px;
-  }
-
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .portrait-card {
-    width: 156px;
-    margin: 0 auto;
+    display: none;
   }
 
   .panel-pin-one { right: 28px; }
-  .email-line { font-size: 14px; overflow-wrap: anywhere; }
+  .email-line { overflow-wrap: anywhere; }
   .cat-wall { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); opacity: 0.74; }
   .hit-counter { grid-template-columns: repeat(7, 22px); }
-  .hit-counter span { font-size: 21px; }
   .guestbook {
     padding: 18px 12px 20px;
     box-shadow: 3px 3px 0 #78698b;
