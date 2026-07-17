@@ -12,7 +12,8 @@ test("exports Amalia's portfolio as static HTML", async () => {
   assert.match(html, /theoretical particle physicist/);
   assert.match(html, /find me elsewhere/);
   assert.match(html, /amadden@kitp\.ucsb\.edu/);
-  assert.match(html, /og\.png/);
+  assert.match(html, /property="og:title"/);
+  assert.doesNotMatch(html, /property="og:image"|name="twitter:image"|og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
 

@@ -722,7 +722,8 @@ footer p { margin: 0 0 8px; }
   }
 
   .portrait-card {
-    display: none;
+    width: 156px;
+    margin: 0 auto;
   }
 
   .panel-pin-one { right: 28px; }

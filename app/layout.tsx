@@ -13,8 +13,6 @@ const siteUrl =
   (owner && repository
     ? `https://${owner}.github.io${basePath}/`
     : "http://localhost:3000/");
-const imageUrl = new URL("og.png", siteUrl).toString();
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
@@ -27,13 +25,11 @@ export const metadata: Metadata = {
     title,
     description,
     type: "website",
-    images: [{ url: imageUrl, width: 1729, height: 910 }],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title,
     description,
-    images: [imageUrl],
   },
 };
 
