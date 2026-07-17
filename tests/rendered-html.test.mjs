@@ -62,6 +62,7 @@ test("ships motion, visitor tracking, and the guestbook", async () => {
   assert.match(styles, /\.guestbook h2\s*{[^}]*-webkit-text-stroke:\s*3px/s);
   assert.match(styles, /\.cat-wall\s*{[^}]*#e1f4ff/s);
   assert.match(styles, /\.links-panel\s*{[^}]*margin-top:\s*70px/s);
+  assert.match(styles, /\.links-panel\s*{[^}]*color:\s*#ffd21f/s);
   assert.doesNotMatch(styles, /\.web-panel\s*{[^}]*inset 0 0/s);
   assert.doesNotMatch(styles, /\.about-copy strong\s*{[^}]*text-shadow/s);
   assert.doesNotMatch(styles, /\.portrait-card\s*{[^}]*rotate/s);
