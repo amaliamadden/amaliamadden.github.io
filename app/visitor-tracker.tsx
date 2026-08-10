@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Guestbook } from "./guestbook";
 
 const baseVisitorCount = 0;
-const counterEndpoint =
-  "https://api.counterapi.dev/v1/amalia-madden-physics-site/visitors-v2";
+const counterApiBase = "https://countapi.mileshilliard.com/api/v1";
+const counterKey = "amalia_madden_github_io_visitor_total_2026";
 
 function counterValue(payload: unknown) {
   if (!payload || typeof payload !== "object") return null;
@@ -21,7 +21,11 @@ function counterValue(payload: unknown) {
     response.data?.count ??
     response.data?.up_count;
 
-  return typeof value === "number" && Number.isFinite(value) ? value : null;
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && /^\d+$/.test(value)) {
+    return Number.parseInt(value, 10);
+  }
+  return null;
 }
 
 function storageScope() {
@@ -53,14 +57,10 @@ export function VisitorTracker() {
       setReady(true);
     };
 
-    if (isLocal) {
-      applyFallbackCounter();
-      return;
-    }
-
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 4500);
-    const endpoint = hasCounted ? counterEndpoint : `${counterEndpoint}/up`;
+    const action = isLocal || hasCounted ? "get" : "hit";
+    const endpoint = `${counterApiBase}/${action}/${counterKey}`;
 
     fetch(endpoint, { cache: "no-store", signal: controller.signal })
       .then((response) => {

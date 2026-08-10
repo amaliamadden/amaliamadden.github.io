@@ -15,9 +15,11 @@ test("exports Amalia's portfolio as static HTML", async () => {
   assert.match(html, /property="og:title"/);
   assert.doesNotMatch(html, /property="og:image"|name="twitter:image"|og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
+  assert.match(html, /favicon-cat\.png/);
+  await access(new URL("../public/favicon-cat.png", import.meta.url));
 });
 
-test("ships motion, visitor tracking, and the guestbook", async () => {
+test("ships the tiled GIF background, motion, visitor tracking, and the guestbook", async () => {
   const [page, cursor, visitorTracker, guestbook, styles, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sparkle-cursor.tsx", import.meta.url), "utf8"),
@@ -28,28 +30,27 @@ test("ships motion, visitor tracking, and the guestbook", async () => {
   ]);
 
   assert.match(page, /className="rainbow-rail"/);
-  assert.match(page, /<LuckyCat/);
+  assert.doesNotMatch(page, /LuckyCat|cat-wall|catCount/);
   assert.match(page, /amalia-portrait\.jpg/);
   assert.match(page, /<strong>Amalia!<\/strong>\{" "\}I&apos;m/);
   assert.match(page, /alt="Amalia smiling by the sea"/);
   assert.match(page, /<p>me irl<\/p>/);
   assert.doesNotMatch(page, /me irl-ish/);
   assert.doesNotMatch(page, /PortraitPlaceholder|portrait-face|hair-back/);
-  assert.match(page, /--nudge-x/);
-  assert.match(page, /--nudge-y/);
-  assert.match(page, /--tilt/);
-  assert.doesNotMatch(styles, /cat-bob/);
-  assert.match(styles, /animation:\s*cat-wave/);
-  assert.match(styles, /cat-wave 1\.15s ease-in-out/);
-  assert.match(styles, /opacity:\s*0\.58/);
-  assert.match(styles, /saturate\(0\.72\) contrast\(1\.06\)/);
+  assert.match(styles, /url\("\/original-cat-tile\.gif"\)/);
+  assert.match(styles, /background-repeat:\s*repeat/);
+  assert.match(styles, /background-size:\s*148px 148px/);
+  assert.doesNotMatch(styles, /\.cat-wall|\.lucky-cat|cat-wave/);
   assert.match(cursor, /pointermove/);
   assert.match(cursor, /cursor-sparkle/);
   assert.match(styles, /::-webkit-scrollbar-thumb/);
   assert.match(styles, /background: linear-gradient/);
   assert.doesNotMatch(styles, /\.custom-cursor\s*{[^}]*border-radius:\s*50%/s);
   assert.match(styles, /\.custom-cursor\s*{[^}]*color:\s*#2468e8/s);
-  assert.match(styles, /\.masthead h1\s*{[^}]*Comic Sans MS[^}]*-webkit-text-fill-color:\s*#fff[^}]*-webkit-text-stroke:\s*6px/s);
+  assert.match(styles, /@font-face\s*{[^}]*font-family:\s*"Comic Neue"[^}]*comic-neue-regular\.ttf/s);
+  assert.match(styles, /@font-face\s*{[^}]*font-weight:\s*700[^}]*comic-neue-bold\.ttf/s);
+  assert.match(styles, /\.masthead h1\s*{[^}]*Comic Neue[^}]*-webkit-text-fill-color:\s*#fff[^}]*-webkit-text-stroke:\s*6px/s);
+  assert.doesNotMatch(styles, /Comic Sans MS|Bradley Hand|Chalkboard SE/);
   assert.match(styles, /\.web-panel\s*{[^}]*border:\s*6px double currentColor/s);
   assert.match(styles, /\.web-panel\s*{[^}]*box-shadow:\s*4px 4px 0 #77678c/s);
   assert.match(styles, /\.portrait-card\s*{[^}]*border:\s*4px double/s);
@@ -61,7 +62,6 @@ test("ships motion, visitor tracking, and the guestbook", async () => {
   assert.match(styles, /\.web-panel h2\s*{[^}]*font-weight:\s*900[^}]*-webkit-text-fill-color:\s*#fff/s);
   assert.match(styles, /\.web-panel h2\s*{[^}]*-webkit-text-stroke:\s*4px/s);
   assert.match(styles, /\.guestbook h2\s*{[^}]*-webkit-text-stroke:\s*3px/s);
-  assert.match(styles, /\.cat-wall\s*{[^}]*#e1f4ff/s);
   assert.match(styles, /\.links-panel\s*{[^}]*margin-top:\s*70px/s);
   assert.match(styles, /\.links-panel\s*{[^}]*color:\s*#ffd21f/s);
   assert.doesNotMatch(styles, /\.web-panel\s*{[^}]*inset 0 0/s);
@@ -77,7 +77,9 @@ test("ships motion, visitor tracking, and the guestbook", async () => {
   assert.match(page, /orcid\.org\/0009-0002-5393-8759/);
   assert.match(page, /inspirehep\.net\/authors\/1995752/);
   assert.match(page, /linkedin\.com\/in\/amalia-madden-233b08168/);
-  assert.match(visitorTracker, /api\.counterapi\.dev\/v1/);
+  assert.match(visitorTracker, /countapi\.mileshilliard\.com\/api\/v1/);
+  assert.match(visitorTracker, /const action = isLocal \|\| hasCounted \? "get" : "hit"/);
+  assert.match(visitorTracker, /Number\.parseInt\(value, 10\)/);
   assert.match(visitorTracker, /window\.localStorage/);
   assert.match(visitorTracker, /<Guestbook \/>/);
   assert.match(guestbook, /https:\/\/giscus\.app\/client\.js/);
@@ -87,4 +89,5 @@ test("ships motion, visitor tracking, and the guestbook", async () => {
   assert.doesNotMatch(packageJson, /vinext|wrangler|react-loading-skeleton/);
 
   await assert.rejects(access(new URL("app/_sites-preview", root)));
+  await access(new URL("../public/original-cat-tile.gif", import.meta.url));
 });
