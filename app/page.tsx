@@ -1,42 +1,7 @@
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import portraitPhoto from "../public/amalia-portrait.jpg";
 import { SparkleCursor } from "./sparkle-cursor";
 import { VisitorTracker } from "./visitor-tracker";
-
-const catCount = 48;
-
-function LuckyCat({ index }: { index: number }) {
-  const style = {
-    "--delay": `${(index % 12) * -0.19}s`,
-    "--sway": `${3 + (index % 4)}deg`,
-    "--nudge-x": `${((index * 7) % 17) - 8}px`,
-    "--nudge-y": `${((index * 11) % 13) - 6}px`,
-    "--tilt": `${((index * 5) % 7) - 3}deg`,
-  } as CSSProperties;
-
-  return (
-    <div className="lucky-cat" style={style} aria-hidden="true">
-      <span className="cat-tail" />
-      <span className="cat-body" />
-      <span className="cat-ear cat-ear-left" />
-      <span className="cat-ear cat-ear-right" />
-      <span className="cat-head">
-        <i className="cat-eye cat-eye-left" />
-        <i className="cat-eye cat-eye-right" />
-        <i className="cat-nose" />
-        <i className="cat-mouth" />
-        <i className="cat-stripe cat-stripe-one" />
-        <i className="cat-stripe cat-stripe-two" />
-      </span>
-      <span className="cat-collar" />
-      <span className="cat-bell" />
-      <span className="cat-arm" />
-      <span className="cat-coin">福</span>
-      <span className="paw-print">·</span>
-    </div>
-  );
-}
 
 function PortraitPhoto() {
   return (
@@ -60,12 +25,6 @@ export default function Home() {
   return (
     <main className="site-shell">
       <SparkleCursor />
-
-      <div className="cat-wall" aria-hidden="true">
-        {Array.from({ length: catCount }, (_, index) => (
-          <LuckyCat key={index} index={index} />
-        ))}
-      </div>
 
       <aside className="rainbow-rail" aria-label="Page navigation">
         <a href="#top" aria-label="Back to top">

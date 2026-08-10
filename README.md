@@ -1,7 +1,8 @@
 # Amalia Madden
 
 A responsive personal website inspired by handmade early-web homepages, with
-animated maneki-neko cats, a rainbow navigation rail, and a sparkling cursor.
+a tiled animated maneki-neko background, a rainbow navigation rail, and a
+sparkling cursor.
 
 ## Local development
 
@@ -20,9 +21,10 @@ The workflow in `.github/workflows/deploy-pages.yml` builds and deploys the
 site whenever `main` is pushed. It automatically supports both user sites and
 project sites.
 
-The production visitor total uses CounterAPI and increments once per browser.
-Local development uses a browser-only fallback, so previews do not affect the
-public count.
+The production visitor total uses CountAPI and increments once per browser.
+Local development reads the shared total without incrementing it, so previews
+do not affect the public count. If the service is temporarily unavailable, the
+page falls back to a device-local count.
 
 ## Guestbook
 
